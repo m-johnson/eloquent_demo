@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Jail extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name','city','state','admin_email'];
 }

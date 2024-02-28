@@ -14,9 +14,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return redirect('/jails');
+});
+
+Route::get('/jails',function(){
     return view('jails',[
         'jails' => \App\Models\Jail::all()
     ]);
+});
+
+Route::get('/jails/create',function(){
+    return view('jails-create');
+});
+
+Route::post('/jails',function(\Illuminate\Http\Request $request){
+    $jail = \App\Models\Jail::create([
+        'name' => $request->get('name'),
+        'city' => $request->get('city'),
+        'state' => $request->get('state'),
+        'admin_email' => $request->get('admin_email')
+    ]);
+
+    return redirect('/');
 });
 
 Route::get('/demo/seeder',function(){

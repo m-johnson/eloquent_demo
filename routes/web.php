@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('jails',[
+        'jails' => \App\Models\Jail::all()
+    ]);
+});
+
+Route::get('/demo/seeder',function(){
+    \App\Models\Jail::factory()->count(5)->create();
 });

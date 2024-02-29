@@ -199,6 +199,16 @@ Route::get('/report',function(){
     //Get all inmates whose first name is "Jeff"
     //\App\Models\Inmate::where('first_name','Jeff')->get()->dd();
 
+    //Track changes to a model
+    //dd(\App\Models\Inmate::find(1)->first_name);
+    /*$inmate = \App\Models\Inmate::find(1);
+    $inmate->first_name = 'DemoGuy';
+    dd($inmate->isDirty());*/
+    //dd($inmate->isDirty('last_name'));
+    //dd($inmate->isDirty('first_name'));
+    //dd($inmate->isDirty(['last_name','first_name']));
+
+
     //Rename all Jeffs to John (Ugly)
     /*$jeff = \App\Models\Inmate::where('first_name','Jeff');
     $jeff->each(function($j){

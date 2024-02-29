@@ -2,8 +2,8 @@
 @section('content')
     <div class="row justify-content-center mt-4">
         <div class="col-12">
-            <h3>{{$inmate->full_name}}</h3>
-            <h5><a href="/jails/{{$inmate->jail->id}}">{{$inmate->jail->name}}</a></h5>
+            <h3>{{$inmate->full_name ?? 'Unknown'}}</h3>
+            {{--<h5><a href="/jails/{{$inmate->jail->id}}">{{$inmate->jail->name}}</a></h5>--}}
         </div>
         {{--<div class="col-12">
             <div class="row mt-4">

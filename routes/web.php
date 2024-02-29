@@ -39,7 +39,7 @@ Route::get('/jails/create',function(){
  * Create Jail From Request Input
  */
 Route::post('/jails',function(\Illuminate\Http\Request $request){
-    $jail = \App\Models\Jail::create([
+    \App\Models\Jail::create([
         'name' => $request->get('name'),
         'city' => $request->get('city'),
         'state' => $request->get('state'),
@@ -165,13 +165,14 @@ Route::get('/demo/seeder',function(){
 
     //$items = \App\Models\Item::factory()->count(12)->create();
 
+    \App\Models\Inmate::factory()
+        ->state([
+            'jail_id' => 12
+        ])
+        ->count(15)
+        ->create();
+
     \App\Models\Jail::factory()
-        ->has(\App\Models\Inmate::factory()
-            /*->has(\App\Models\Order::factory()
-                ->count(2)
-            )*/
-            ->count(3)
-        )
         ->count(5)
         ->create();
 

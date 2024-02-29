@@ -20,7 +20,7 @@
                                         <td>{{$inmate->id}}</td>
                                         <td><a href="/inmates/{{$inmate->id}}">{{$inmate->first_name}}</a></td>
                                         <td><a href="/inmates/{{$inmate->id}}">{{$inmate->last_name}}</a></td>
-                                        <td>{{$inmate->jail->name}}</td>
+                                        <td>{{$inmate->jail->name ?? 'N/A'}}</td>
                                         <td>{{$inmate->xref_id}}</td>
                                         <td>{{$inmate->created_at}}</td>
                                     </tr>

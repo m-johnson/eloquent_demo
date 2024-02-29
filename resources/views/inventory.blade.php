@@ -4,7 +4,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12">
-                    <a href="/jails/create" class="btn btn-success float-end">Add Jail</a>
+                    <a href="/inventory/create" class="btn btn-success float-end">Add Item</a>
                 </div>
             </div>
             <div class="row mt-4">
@@ -14,18 +14,18 @@
                             <table class="table">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Jail Name</th>
-                                    <th>City</th>
-                                    <th>State</th>
+                                    <th>Item Name</th>
+                                    <th width="25%'">Description</th>
+                                    <th>Price</th>
                                     <th>Date Created</th>
                                 </tr>
-                                @foreach($jails as $jail)
+                                @foreach(\App\Models\Item::all() as $item)
                                     <tr onclick="">
-                                        <td>{{$jail->id}}</td>
-                                        <td><a href="/jails/{{$jail->id}}">{{$jail->name}}</a></td>
-                                        <td>{{$jail->city}}</td>
-                                        <td>{{$jail->state}}</td>
-                                        <td>{{$jail->created_at}}</td>
+                                        <td>{{$item->id}}</td>
+                                        <td><a href="/items/{{$item->id}}">{{$item->name}}</a></td>
+                                        <td>{{$item->description}}</td>
+                                        <td>{{$item->price}}</td>
+                                        <td>{{$item->created_at->format('m/d/Y')}}</td>
                                     </tr>
                                 @endforeach
                             </table>

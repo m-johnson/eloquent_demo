@@ -10,4 +10,8 @@ class Jail extends Model
     use HasFactory;
 
     protected $fillable = ['name','city','state','admin_email'];
+
+    public function inmates(){
+        return $this->hasMany(Inmate::class);
+    }
 }

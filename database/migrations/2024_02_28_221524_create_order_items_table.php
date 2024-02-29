@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJailsTable extends Migration
+class CreateOrderItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateJailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jails', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('city');
-            $table->string('state');
-            $table->string('admin_email');
+            $table->integer('order_id');
+            $table->integer('item_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class CreateJailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jails');
+        Schema::dropIfExists('order_items');
     }
 }

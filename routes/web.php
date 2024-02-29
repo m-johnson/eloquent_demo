@@ -114,7 +114,7 @@ Route::get('/demo/seeder',function(){
 
     \App\Models\Jail::factory()
         ->has(\App\Models\Inmate::factory()
-            ->has(\App\Models\Order::fdraactory()
+            ->has(\App\Models\Order::factory()
                 ->count(2)
             )
             ->count(3)
@@ -127,6 +127,8 @@ Route::get('/demo/seeder',function(){
             $order->items()->attach($items->random());
         }
     });
+
+    return redirect('/');
 
 });
 
@@ -160,15 +162,24 @@ Route::get('/report',function(){
     })->get());*/
 
     //Same thing but with all orders
-    dd(\App\Models\Inmate::with('orders.items')->whereHas('orders.items',function($query){
+    /*dd(\App\Models\Inmate::with('orders.items')->whereHas('orders.items',function($query){
         $query->where('name','Popcorn');
-    })->get());
+    })->get());*/
 
-    //Same thing with only matching relationships
-    dd(\App\Models\Inmate::with(['orders' => function($query){
-        $query->whereHas('items',function($sub){
-            $sub->where('name','Popcorn');
+    //All inmates, but only attach orders that match the criteria
+    /*dd(\App\Models\Inmate::with(['orders' => function($order){
+        $order->whereHas('items',function($item){
+            $item->where('name','Popcorn');
         });
-    }]));
+    }])->get());*/
+
+    /*dd(\App\Models\Inmate::with(['orders' => function($order){
+        $order->with('items')->whereHas('items',function($item){
+            $item->where('name','Popcorn');
+        });
+    }])
+    ->whereHas('orders.items',function($item){
+        $item->where('name','Popcorn');
+   })->get());*/
 
 });

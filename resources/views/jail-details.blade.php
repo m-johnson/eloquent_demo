@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        {{--<div class="col-12">
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
@@ -70,6 +70,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
     </div>
 @endsection

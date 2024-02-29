@@ -28,7 +28,7 @@
                         <a class="nav-link" href="/inmates">Inmates</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/inventory">Inventory</a>
+                        <a class="nav-link disabled" href="#">Inventory</a>
                     </li>
                 </ul>
             </div>

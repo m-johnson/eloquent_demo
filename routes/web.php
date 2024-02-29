@@ -54,15 +54,15 @@ Route::post('/jails',function(\Illuminate\Http\Request $request){
  */
 Route::get('/jails/{id}',function($id){
 
-    $orders = \App\Models\Order::where('completed',false)
+    /*$orders = \App\Models\Order::where('completed',false)
         ->whereHas('inmate',function($inmate) use($id){
         $inmate->where('jail_id',$id);
-    })->get();
+    })->get();*/
 
-    //$orders = \App\Models\Order::whereRelation('inmate','jail_id',$id)->get();
-
-    return view('jail-details',['jail'=>\App\Models\Jail::find($id),
-        'orders' => $orders]);
+    return view('jail-details',[
+        'jail'=>\App\Models\Jail::find($id),
+        /*'orders' => $orders*/
+    ]);
 });
 
 /**
@@ -163,23 +163,23 @@ Route::get('/inventory/create',function(){
  */
 Route::get('/demo/seeder',function(){
 
-    $items = \App\Models\Item::factory()->count(12)->create();
+    //$items = \App\Models\Item::factory()->count(12)->create();
 
     \App\Models\Jail::factory()
         ->has(\App\Models\Inmate::factory()
-            ->has(\App\Models\Order::factory()
+            /*->has(\App\Models\Order::factory()
                 ->count(2)
-            )
+            )*/
             ->count(3)
         )
         ->count(5)
         ->create();
 
-    \App\Models\Order::all()->each(function(\App\Models\Order $order) use ($items){
+    /*\App\Models\Order::all()->each(function(\App\Models\Order $order) use ($items){
         for($x = 0; $x < rand(1,5); $x++) {
             $order->items()->attach($items->random());
         }
-    });
+    });*/
 
     return redirect('/');
 

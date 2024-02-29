@@ -5,7 +5,7 @@
             <h3>{{$inmate->full_name}}</h3>
             <h5><a href="/jails/{{$inmate->jail->id}}">{{$inmate->jail->name}}</a></h5>
         </div>
-        <div class="col-12">
+        {{--<div class="col-12">
             <div class="row mt-4">
                 <div class="col-12">
                     <a href="/inmates/{{$inmate->id}}/orders/create" class="btn btn-success float-end">Start Order</a>
@@ -38,6 +38,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
     </div>
 @endsection

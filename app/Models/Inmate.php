@@ -11,10 +11,6 @@ class Inmate extends Model
 
     protected $fillable = ['first_name','last_name','xref_id','jail_id'];
 
-    public function orders(){
-        return $this->hasMany(Order::class);
-    }
-
     public function jail(){
         return $this->belongsTo(Jail::class);
     }

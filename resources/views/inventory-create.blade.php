@@ -12,7 +12,7 @@
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price</label>
-            <input type="number" name="price" class="form-control" id="price" aria-describedby="jailHelp">
+            <input type="float" name="price" class="form-control" id="price" aria-describedby="jailHelp">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

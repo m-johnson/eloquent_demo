@@ -114,7 +114,7 @@ Route::get('/demo/seeder',function(){
 
     \App\Models\Jail::factory()
         ->has(\App\Models\Inmate::factory()
-            ->has(\App\Models\Order::factory()
+            ->has(\App\Models\Order::fdraactory()
                 ->count(2)
             )
             ->count(3)
@@ -131,5 +131,44 @@ Route::get('/demo/seeder',function(){
 });
 
 Route::get('/report',function(){
-    //$orders = \App\Models\Order::whereHas();
+    //Get all inmates who have an open order total over 5 dollars
+
+    //Pagination
+    //\App\Models\Inmate::paginate(2)->dd(); //report && //report?page=2
+
+    //All inmates
+    //\App\Models\Inmate::all()->dd();
+
+    //All inmates ordered by first name
+    //\App\Models\Inmate::orderBy('first_name','desc')->get()->dd();
+
+    //Get all inmates whose first name is "Jeff"
+    //\App\Models\Inmate::where('first_name','Jeff')->get()->dd();
+
+    //Get all inventory items where the price is greater than 1.00
+    //\App\Models\Item::where('price','>',1)->get()->dd();
+
+    //Simple find
+    //dd(\App\Models\Inmate::find(2));
+
+    //Get inmate with relationships
+    //dd(\App\Models\Inmate::with('orders.items')->find(1));
+
+    //Get inmates who have ordered Popcorn (Note that this doesn't provide the relationship data)
+    /*dd(\App\Models\Inmate::whereHas('orders.items',function($query){
+        $query->where('name','Popcorn');
+    })->get());*/
+
+    //Same thing but with all orders
+    dd(\App\Models\Inmate::with('orders.items')->whereHas('orders.items',function($query){
+        $query->where('name','Popcorn');
+    })->get());
+
+    //Same thing with only matching relationships
+    dd(\App\Models\Inmate::with(['orders' => function($query){
+        $query->whereHas('items',function($sub){
+            $sub->where('name','Popcorn');
+        });
+    }]));
+
 });

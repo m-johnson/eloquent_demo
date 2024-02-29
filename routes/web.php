@@ -17,16 +17,27 @@ Route::get('/', function () {
     return redirect('/jails');
 });
 
+/**
+ * View All Jails
+ */
 Route::get('/jails',function(){
     return view('jails',[
         'jails' => \App\Models\Jail::all()
     ]);
 });
 
+
+/**
+ * Jail Creation Form
+ */
 Route::get('/jails/create',function(){
     return view('jails-create');
 });
 
+
+/**
+ * Create Jail From Request Input
+ */
 Route::post('/jails',function(\Illuminate\Http\Request $request){
     $jail = \App\Models\Jail::create([
         'name' => $request->get('name'),
@@ -38,6 +49,9 @@ Route::post('/jails',function(\Illuminate\Http\Request $request){
     return redirect('/');
 });
 
+/**
+ * View Jail
+ */
 Route::get('/jails/{id}',function($id){
 
     $orders = \App\Models\Order::where('completed',false)
@@ -51,27 +65,45 @@ Route::get('/jails/{id}',function($id){
         'orders' => $orders]);
 });
 
+/**
+ * List Inmates
+ */
 Route::get('/inmates',function(){
     return view('inmates');
 });
 
-Route::get('/jails/{jail}/inmates/create',function(\App\Models\Jail $jail){
-    return view('inmate-create',['jail'=>$jail]);
-});
-
+/**
+ * View Inmate
+ */
 Route::get('/inmates/{id}',function(\App\Models\Inmate $id){
     return view('inmate-details',['inmate'=>$id]);
 });
 
+/**
+ * Create Inmate Form
+ */
+Route::get('/jails/{jail}/inmates/create',function(\App\Models\Jail $jail){
+    return view('inmate-create',['jail'=>$jail]);
+});
+
+/**
+ * Create Jail Inmate
+ */
 Route::post('/jails/{jail}/inmates',function(\App\Models\Jail $jail, \Illuminate\Http\Request $request){
     $jail->inmates()->create($request->all());
     return redirect('/jails/'.$jail->id);
 });
 
+/**
+ * View Order
+ */
 Route::get('/orders/{order}',function(\App\Models\Order $order){
     return view('order-details',['order'=>$order]);
 });
 
+/**
+ * Complete Order
+ */
 Route::get('/orders/{order}/complete',function(\App\Models\Order $order){
     $order->completed = true;
     $order->save();
@@ -79,15 +111,9 @@ Route::get('/orders/{order}/complete',function(\App\Models\Order $order){
     return redirect('/inmates/'.$order->inmate->id);
 });
 
-Route::get('/orders/{order}/items/create',function(\App\Models\Order $order){
-    return view('order-item-create',['order'=>$order]);
-});
-
-Route::post('/orders/{order}/items',function(\App\Models\Order $order,\Illuminate\Http\Request $request){
-    $order->items()->attach($request->get('item'));
-    return redirect('/orders/' . $order->id);
-});
-
+/**
+ * Create Inmate Order
+ */
 Route::get('/inmates/{inmate}/orders/create',function(\App\Models\Inmate $inmate){
     $inmate->orders()->create([
         'completed' => false
@@ -95,19 +121,46 @@ Route::get('/inmates/{inmate}/orders/create',function(\App\Models\Inmate $inmate
     return redirect('/inmates/' . $inmate->id);
 });
 
+/**
+ * Create Order Form
+ */
+Route::get('/orders/{order}/items/create',function(\App\Models\Order $order){
+    return view('order-item-create',['order'=>$order]);
+});
+
+/**
+ * Add Item To Order
+ */
+Route::post('/orders/{order}/items',function(\App\Models\Order $order,\Illuminate\Http\Request $request){
+    $order->items()->attach($request->get('item'));
+    return redirect('/orders/' . $order->id);
+});
+
+/**
+ * List Inventory Items
+ */
 Route::get('/inventory',function(){
     return view('inventory');
 });
 
+/**
+ * Create Inventory Item
+ */
 Route::post('/inventory',function(\Illuminate\Http\Request $request){
     \App\Models\Item::create($request->all());
     return redirect('/inventory');
 });
 
+/**
+ * Inventory Creation Form
+ */
 Route::get('/inventory/create',function(){
     return view('inventory-create');
 });
 
+/**
+ * DB Seeder
+ */
 Route::get('/demo/seeder',function(){
 
     $items = \App\Models\Item::factory()->count(12)->create();
@@ -133,7 +186,6 @@ Route::get('/demo/seeder',function(){
 });
 
 Route::get('/report',function(){
-    //Get all inmates who have an open order total over 5 dollars
 
     //Pagination
     //\App\Models\Inmate::paginate(2)->dd(); //report && //report?page=2
@@ -146,6 +198,16 @@ Route::get('/report',function(){
 
     //Get all inmates whose first name is "Jeff"
     //\App\Models\Inmate::where('first_name','Jeff')->get()->dd();
+
+    //Rename all Jeffs to John (Ugly)
+    /*$jeff = \App\Models\Inmate::where('first_name','Jeff');
+    $jeff->each(function($j){
+        $j->first_name = 'John';
+        $j->save();
+    });*/
+
+    //Rename all Johns to Jeff (cleaner))
+    //$john = \App\Models\Inmate::where('first_name','John')->update(['first_name'=>'Jeff']);
 
     //Get all inventory items where the price is greater than 1.00
     //\App\Models\Item::where('price','>',1)->get()->dd();
